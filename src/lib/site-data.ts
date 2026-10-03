@@ -1,24 +1,34 @@
-import logo from '@/assets/logo.jpg.asset.json';
-import healingVideo from '@/assets/IMG_9216.mp4.asset.json';
-import founderVideo from '@/assets/IMG_9214.MP4.asset.json';
-import astrologyVideo from '@/assets/IMG_9215.MP4.asset.json';
-import watchVideo from '@/assets/IMG_9206.MP4.asset.json';
-import healingPoster from '@/assets/IMG_9216.mp4-4.jpg.asset.json';
-import founderPoster from '@/assets/IMG_9214.MP4-4.jpg.asset.json';
-import astrologyPoster from '@/assets/IMG_9215.MP4-4.jpg.asset.json';
-import watchPoster from '@/assets/IMG_9206.MP4-4.jpg.asset.json';
-import t1 from '@/assets/T-1.jpeg.asset.json';
-import t2 from '@/assets/T-2.jpeg.asset.json';
-import t3 from '@/assets/T-3.jpeg.asset.json';
-import t4 from '@/assets/T-4.jpeg.asset.json';
-import t5 from '@/assets/T-5.jpeg.asset.json';
-import t6 from '@/assets/T-6.jpeg.asset.json';
-import t7 from '@/assets/T-7.jpeg.asset.json';
-import t8 from '@/assets/T-8.jpeg.asset.json';
-import t9 from '@/assets/T-9.jpeg.asset.json';
-import t10 from '@/assets/T-10.jpeg.asset.json';
+import logo from '@/assets/logo.jpg';
+import healingVideo from '@/assets/IMG_9216.mp4';
+import founderVideo from '@/assets/IMG_9214.MP4';
+import astrologyVideo from '@/assets/IMG_9215.MP4';
+import watchVideo from '@/assets/IMG_9206.MP4';
+import healingPoster from '@/assets/IMG_9216.mp4-4.jpg';
+import founderPoster from '@/assets/IMG_9214.MP4-4.jpg';
+import astrologyPoster from '@/assets/IMG_9215.MP4-4.jpg';
+import watchPoster from '@/assets/IMG_9206.MP4-4.jpg';
+import t1 from '@/assets/T-1.jpeg';
+import t2 from '@/assets/T-2.jpeg';
+import t3 from '@/assets/T-3.jpeg';
+import t4 from '@/assets/T-4.jpeg';
+import t5 from '@/assets/T-5.jpeg';
+import t6 from '@/assets/T-6.jpeg';
+import t7 from '@/assets/T-7.jpeg';
+import t8 from '@/assets/T-8.jpeg';
+import t9 from '@/assets/T-9.jpeg';
+import t10 from '@/assets/T-10.jpeg';
 
-export const media = { logo: logo.url, healingVideo: healingVideo.url, founderVideo: founderVideo.url, astrologyVideo: astrologyVideo.url, watchVideo: watchVideo.url, healingPoster: healingPoster.url, founderPoster: founderPoster.url, astrologyPoster: astrologyPoster.url, watchPoster: watchPoster.url };
+export const media = {
+  logo,
+  healingVideo,
+  founderVideo,
+  astrologyVideo,
+  watchVideo,
+  healingPoster,
+  founderPoster,
+  astrologyPoster,
+  watchPoster,
+};
 
 export const services = [
   { number: '01', title: 'Tarot Reading', category: 'INTUITIVE GUIDANCE', symbol: '✦', description: 'Explore relationships, career, finances and important life situations through intuitive card readings.' },
@@ -33,4 +43,4 @@ export const services = [
   { number: '10', title: 'Psychic Healing', category: 'ENERGY WORK', symbol: '✺', description: 'A spiritual practice focused on energetic cleansing, chakra balancing and reflection.' },
 ];
 
-export const reviews = [t1,t2,t3,t4,t5,t6,t7,t8,t9,t10].map((asset, i) => ({ src: asset.url, alt: `Client review ${i + 1} for Kaajjal’s Spiritual World` }));
+export const reviews = [t1,t2,t3,t4,t5,t6,t7,t8,t9,t10].map((src, i) => ({ src, alt: `Client review ${i + 1} for Kaajjal’s Spiritual World` }));
