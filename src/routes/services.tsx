@@ -1,0 +1,9 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { ContactBand, PageIntro } from '@/components/SiteLayout';
+import { services } from '@/lib/site-data';
+export const Route = createFileRoute('/services')({ head: () => ({ meta: [
+  { title: 'Astrology, Tarot & Healing Services | Kaajjal’s Spiritual World' },
+  { name: 'description', content: 'Explore tarot reading, kundali, reiki, vastu, numerology, crystal healing, business consultancy and more in Bibwewadi, Pune.' },
+  { property: 'og:title', content: 'Spiritual Guidance Services | Kaajjal’s Spiritual World' }, { property: 'og:description', content: 'Personalized astrology, numerology, healing and consultation services with Kaajjal Rahul Jadhhav.' }, { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary_large_image' },
+] }), component: Services });
+function Services() { return <><PageIntro label="PERSONALIZED GUIDANCE" title="Explore our services." description="Different paths, one purpose: helping you find greater perspective on your unique journey."/><section className="section-wrap"><div className="container-wide"><div className="section-heading"><div><div className="eyebrow">OUR OFFERINGS</div><h2 className="section-title">A practice for <em>every season.</em></h2></div><p className="section-aside">Each consultation is tailored to individual needs and blends traditional practices with a personal approach.</p></div><div className="services-grid">{services.map(item => <div className="service-item" key={item.number}><div className="service-top"><span className="service-number">{item.number} / 10</span><span className="service-symbol">{item.symbol}</span></div><div className="service-category">{item.category}</div><h3>{item.title}</h3><p>{item.description}</p></div>)}</div></div></section><ContactBand/></> }
