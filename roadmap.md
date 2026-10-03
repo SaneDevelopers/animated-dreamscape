@@ -1,0 +1,3 @@
+- Build a light, richly animated Kaajjal’s Spiritual World website from the supplied brief and media.
+- Use a video-led hero slider instead of a dark theme.
+- Provide Home, About, Services, Courses, Gallery, and Contact pages without inventing contact or course details.
