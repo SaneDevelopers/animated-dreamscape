@@ -12,8 +12,8 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ContactBand } from '@/components/SiteLayout';
-import { ReviewModal } from '@/components/ReviewModal';
-import { media, reviews, services } from '@/lib/site-data';
+import { GoogleReviewsSection } from '@/components/GoogleReviewsSection';
+import { media, services } from '@/lib/site-data';
 
 export const Route = createFileRoute('/')({
   head: () => ({
@@ -22,7 +22,7 @@ export const Route = createFileRoute('/')({
       {
         name: 'description',
         content:
-          'Discover personalized tarot, kundali, reiki, numerology and spiritual guidance with Kaajjal Rahul Jadhhav in Bibwewadi, Pune.',
+          'Discover personalized tarot, kundali, reiki, numerology and spiritual guidance with Kaajjal Jadhhav in Bibwewadi, Pune.',
       },
       { property: 'og:title', content: 'Kaajjal’s Spiritual World | Astrology & Healing in Pune' },
       {
@@ -63,7 +63,7 @@ const slides = [
         <em>Your journey.</em>
       </>
     ),
-    text: 'Discover personalized insights through tarot, kundali and spiritual consultation with Kaajjal Rahul Jadhhav.',
+    text: 'Discover personalized insights through tarot, kundali and spiritual consultation with Kaajjal Jadhhav.',
     video: media.founderVideo,
     poster: media.founderPoster,
     caption: 'MEET KAAJJAL',
@@ -92,7 +92,6 @@ const serviceCategories = ['ALL', 'ASTROLOGY', 'ENERGY WORK', 'NUMEROLOGY', 'SPA
 function Home() {
   const [active, setActive] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
-  const [selectedReview, setSelectedReview] = useState<number | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>('ALL');
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
@@ -148,7 +147,7 @@ function Home() {
               aria-hidden={!isCurrent}
             >
               {slide.layout === 'fullscreen' ? (
-                /* Full-screen Cinematic Landscape Video (Original Slider Bleed) */
+                /* Full-screen Cinematic Landscape Video */
                 <div className="hero-media-fullscreen">
                   <video
                     ref={(el) => {
@@ -162,17 +161,9 @@ function Home() {
                     loop
                     preload={i === 0 ? 'auto' : 'none'}
                   />
-                  <button
-                    onClick={toggleSound}
-                    className="fullscreen-audio-btn"
-                    aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-                  >
-                    {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-                    <span>{isMuted ? 'Tap to listen' : 'Mute sound'}</span>
-                  </button>
                 </div>
               ) : (
-                /* Blended Portrait Showcase Stage for Founder/Portrait Videos */
+                /* Blended Portrait Showcase Stage: Full-bleed on mobile, refined showcase card on desktop */
                 <>
                   <div className="hero-portrait-stage" aria-hidden="true">
                     <div className="hero-ambient-aura" />
@@ -200,14 +191,6 @@ function Home() {
                       <div className="portrait-location-tag">
                         <span>Pune & Online</span>
                       </div>
-                      <button
-                        onClick={toggleSound}
-                        className="portrait-audio-btn"
-                        aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-                      >
-                        {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-                        <span>{isMuted ? 'Tap to listen' : 'Mute sound'}</span>
-                      </button>
                     </div>
                   </div>
                 </>
@@ -252,6 +235,16 @@ function Home() {
             </div>
           );
         })}
+
+        {/* Unified Audio Toggle Button Pinned Consistently Across All Slides */}
+        <button
+          onClick={toggleSound}
+          className="hero-audio-btn"
+          aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+        >
+          {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+          <span>{isMuted ? 'Tap to listen' : 'Mute sound'}</span>
+        </button>
 
         {/* Previous Slider Bottom Navigation Bar */}
         <div className="hero-bottom">
@@ -342,7 +335,7 @@ function Home() {
               Welcome to a space for <em>self-discovery.</em>
             </h2>
             <p>
-              Founded by Kaajjal Rahul Jadhhav, Kaajjal’s Spiritual World is an astrology and spiritual guidance platform based in Bibwewadi, Pune.
+              Founded by Kaajjal Jadhhav, Kaajjal’s Spiritual World is an astrology and spiritual guidance platform based in Bibwewadi, Pune.
             </p>
             <p>
               With six years of experience, Kaajjal offers individual attention and thoughtful guidance across personal and professional life. Every journey is different. Here, yours is heard with complete confidentiality.
@@ -353,7 +346,7 @@ function Home() {
                 <span>years experience</span>
               </div>
               <div>
-                <strong>10</strong>
+                <strong>{services.length}</strong>
                 <span>sacred services</span>
               </div>
               <div>
@@ -386,7 +379,7 @@ function Home() {
                 A thoughtful mix of astrology, energy work and personalized consultation for every season of life.
               </p>
               <Link to="/services" className="text-link">
-                View all 10 services <ArrowUpRight size={16} />
+                View all {services.length} services <ArrowUpRight size={16} />
               </Link>
             </div>
           </div>
@@ -410,7 +403,7 @@ function Home() {
             {filteredServices.slice(0, 6).map((item) => (
               <div className="service-item" key={item.number}>
                 <div className="service-top">
-                  <span className="service-number">{item.number} / 10</span>
+                  <span className="service-number">{item.number} / {services.length}</span>
                   <span className="service-symbol">{item.symbol}</span>
                 </div>
                 <div className="service-category">{item.category}</div>
@@ -452,61 +445,8 @@ function Home() {
         </div>
       </section>
 
-      {/* Client Stories / Reviews with Lightbox */}
-      <section className="section-wrap">
-        <div className="container-wide">
-          <div className="section-heading">
-            <div>
-              <div className="eyebrow">
-                <span className="eyebrow-line" />
-                KIND WORDS
-              </div>
-              <h2 className="section-title">
-                Stories from the <em>journey.</em>
-              </h2>
-            </div>
-            <Link to="/gallery" className="text-link">
-              View all 10 stories <ArrowUpRight size={16} />
-            </Link>
-          </div>
-
-          <div className="review-grid">
-            {reviews.slice(0, 4).map((review, i) => (
-              <div
-                className="review-card"
-                key={review.src}
-                onClick={() => setSelectedReview(i)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') setSelectedReview(i);
-                }}
-                aria-label={`Open client review ${i + 1} preview`}
-              >
-                <div className="review-img-wrap">
-                  <img src={review.src} alt={review.alt} loading="lazy" />
-                  <div className="review-hover-overlay">
-                    <Maximize2 size={16} />
-                    <span>Read Experience</span>
-                  </div>
-                </div>
-                <div className="review-caption">
-                  <span>Client story 0{i + 1}</span>
-                  <span className="review-badge">★ Verified</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Interactive Review Lightbox */}
-      <ReviewModal
-        selectedIndex={selectedReview}
-        reviews={reviews}
-        onClose={() => setSelectedReview(null)}
-        onNavigate={setSelectedReview}
-      />
+      {/* Client Stories / Google Reviews */}
+      <GoogleReviewsSection limit={3} showAllLink={true} />
 
       <ContactBand />
     </>

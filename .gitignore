@@ -10,6 +10,8 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+cpanel-deploy
+cpanel-deploy.zip
 .output
 .vinxi
 .tanstack/**
